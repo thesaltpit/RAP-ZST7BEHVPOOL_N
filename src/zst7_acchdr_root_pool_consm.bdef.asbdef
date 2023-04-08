@@ -1,0 +1,20 @@
+projection;
+
+define behavior for ZST7_ACCHDR_ROOT_POOL_CONSM //alias <alias_name>
+{
+  use create;
+  use update;
+  use delete;
+
+  use action copyAccDocHdr as copyAccDoc;
+  use association _items { create; }
+}
+
+define behavior for ZST7_ACCITM_CHILD_POOL_CONSM //alias <alias_name>
+{
+  use update;
+  use delete;
+
+//  use action copyAccDocItm as copyAccDocI;
+  use association _header;
+}

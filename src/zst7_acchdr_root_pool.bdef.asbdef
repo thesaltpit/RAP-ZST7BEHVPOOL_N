@@ -1,0 +1,43 @@
+managed implementation in class zst7_zbp_st7_acchdr_root_pool unique;
+
+//with draft;        //Adding draft capabilities
+
+define behavior for ZST7_ACCHDR_ROOT_POOL alias AccountingHeader
+persistent table zst7acchdr_tb  //actual table name where we will perform create, update & delete options
+//draft table zst7hdr_drafttb
+lock master
+//total etag changeddt_time
+//authorization master ( instance )
+//etag master lastchngdttm
+{
+  create;
+  update;
+  delete;
+
+  //$self means my import & export parameters are the same / [1] means we are only dealing with 1 line item at a time
+  action copyAccDocHdr result [1] $self;
+  validation validateDocType on save{field blart; create;}
+  //Creating header & item data
+  association _items{create;}
+  //association _items { create; with draft; }
+}
+
+define behavior for ZST7_ACCITM_CHILD_POOL alias AccountingLines
+persistent table zst7accitm_tb
+//draft table zst7itm_drfttb
+lock dependent by _header
+//authorization dependent by _header
+//etag master chgdttime
+{
+  update;
+  delete;
+  field ( readonly ) bukrs;
+  field ( readonly ) belnr;
+  field ( readonly ) gjahr;
+
+
+//exposing the parent
+  association _header;
+//    association _header { with draft; }
+
+ }

@@ -1,0 +1,7 @@
+@EndUserText.label: 'Service definition for acc header consumption view'
+define service ZST7_ACCHDR_ROOT_POOL_CONSM_SD {
+  expose ZST7_ACCHDR_ROOT_POOL_CONSM;
+  expose ZST7_ACCITM_CHILD_POOL_CONSM;
+  expose ZST7_ACCHDR_ROOT_POOL;
+  expose ZST7_ACCITM_CHILD_POOL;
+}
